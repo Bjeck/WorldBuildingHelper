@@ -7,8 +7,7 @@ using System.Linq;
 
 public class FileReader : MonoBehaviour
 {
-
-    public List<string> questions = new List<string>();
+    public Dictionary<string, List<string>> questions = new Dictionary<string, List<string>>();
 
 	// Use this for initialization
 	void Start ()
@@ -19,6 +18,7 @@ public class FileReader : MonoBehaviour
 
     private bool Load(string fileName)
     {
+        string currentlist = "";
 
         string line;
         line = "";
@@ -31,12 +31,28 @@ public class FileReader : MonoBehaviour
                 //print("reading line");
                 line = theReader.ReadLine();
 
-                if (line != null && line.Substring(0, 1) != "#")
+                if (line != null)
                 {
 
                     print("ENTRY: " + line);
-                    string q = line;
-                    questions.Add(q);
+                    //if(line.Length > 4)
+                    //{
+                        line = line.Trim('\t');
+                    //}
+                    if (line.StartsWith("#"))
+                    {
+                        line = line.Remove(0, 1);
+                        if (!questions.ContainsKey(line))
+                        {
+                            questions.Add(line, new List<string>());
+                        }
+                        currentlist = line;
+                    }
+                    else
+                    {
+                        questions[currentlist].Add(line);
+                    }
+
                 }
             }
             //
