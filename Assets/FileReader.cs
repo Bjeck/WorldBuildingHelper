@@ -7,63 +7,81 @@ using System.Linq;
 
 public class FileReader : MonoBehaviour
 {
-    public Dictionary<string, List<string>> questions = new Dictionary<string, List<string>>();
+    public Dictionary<string, List<QuestionData>> questions = new Dictionary<string, List<QuestionData>>();
 
-	// Use this for initialization
-	void Start ()
+    [SerializeField] Manager manager;
+
+    // Use this for initialization
+    void Awake()
     {
         Load(Application.dataPath + "/questions_raw.txt");
-	}
-	
+        LoadAnsweredList();
+    }
+
 
     private bool Load(string fileName)
     {
         string currentlist = "";
+
+        int id = 0;
 
         string line;
         line = "";
         StreamReader theReader = new StreamReader(fileName, Encoding.Default);
         using (theReader)
         {
-            // While there's lines left in the text file, do this:
             while (line != null)
             {
-                //print("reading line");
                 line = theReader.ReadLine();
 
                 if (line != null)
                 {
 
                     print("ENTRY: " + line);
-                    //if(line.Length > 4)
-                    //{
-                        line = line.Trim('\t');
-                    //}
+                    line = line.Trim('\t');
+
                     if (line.StartsWith("#"))
                     {
                         line = line.Remove(0, 1);
                         if (!questions.ContainsKey(line))
                         {
-                            questions.Add(line, new List<string>());
+                            questions.Add(line, new List<QuestionData>());
                         }
                         currentlist = line;
                     }
                     else
                     {
-                        questions[currentlist].Add(line);
+                        QuestionData data = new QuestionData(line,id.ToString(), currentlist,"");
+                        questions[currentlist].Add(data);
                     }
-
                 }
+
+                id++;
             }
-            //
-            //while(line != null);
-            // Done reading, close the reader and return true to broadcast success  
             Debug.Log(questions.Count);
             theReader.Close();
             return true;
         }
-        // If anything broke in the try block, we throw an exception with information
-        // on what didn't work
+    }
 
+
+    void LoadAnsweredList()
+    {
+        if(!File.Exists(Application.dataPath + "/Files/answer.json"))
+        {
+            return;
+        }
+        string jsonData = File.ReadAllText(Application.dataPath + "/Files/answer.json");
+        if (string.IsNullOrEmpty(jsonData))
+        {
+            return;
+        }
+        QuestionAnswerData allData = JsonUtility.FromJson<QuestionAnswerData>(jsonData);
+
+        if(allData != null)
+        {
+            manager.SaveData = allData;
+        }
     }
 }
+

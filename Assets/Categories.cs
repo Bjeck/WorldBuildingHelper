@@ -12,7 +12,7 @@ public class Categories : MonoBehaviour
 
     [SerializeField] List<GameObject> categories;
 
-    public void SetupCategoryField(Dictionary<string, List<string>> questions)
+    public void SetupCategoryField(Dictionary<string, List<QuestionData>> questions)
     {
         List<string> cats = questions.Keys.ToList();
         for (int i = 0; i < cats.Count; i++)

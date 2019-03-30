@@ -9,13 +9,31 @@ public class Question : MonoBehaviour
     [SerializeField] Manager manager;
     [SerializeField] TextMeshProUGUI question;
 
+    public QuestionData currentQuestionData;
+
     public void NewQuestion()
     {
-        List<string> name = manager.currentQuestions.Keys.ToList();
+        List<string> name = manager.questionsNotAsked.Keys.ToList();
+        if(name.Count == 0)
+        {
+            manager.popups.NoCategoriesSelectedPopup();
+            return;
+        }
         string rand = name[Random.Range(0, name.Count)];
-        int rand2 = Random.Range(0, manager.currentQuestions[rand].Count);
-        question.text = manager.currentQuestions[rand][rand2];
+        if(manager.questionsNotAsked[rand].Count == 0)
+        {
+            manager.popups.NoMoreQuestionsInCategories();
+            return;
+        }
+        int rand2 = Random.Range(0, manager.questionsNotAsked[rand].Count);
+        currentQuestionData = manager.questionsNotAsked[rand][rand2];
+        question.text = currentQuestionData.question;
 
         //use that question up
+
     }
+
+
+
+
 }
