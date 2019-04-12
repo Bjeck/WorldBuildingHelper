@@ -7,6 +7,7 @@ public class Popups : MonoBehaviour
 {
     public GameObject noCategoriesPopup;
     public GameObject noQuestionsPopup;
+    public ShowAnswerPopup fullAnswerPopup;
 
 
     public void NoCategoriesSelectedPopup()
@@ -19,5 +20,10 @@ public class Popups : MonoBehaviour
         noQuestionsPopup.SetActive(true);
     }
 
+    public void DisplayFullAnswer(string fullAnswer)
+    {
+        fullAnswerPopup.gameObject.SetActive(true);
+        fullAnswerPopup.DisplayAnswer(fullAnswer);
+    }
 
 }

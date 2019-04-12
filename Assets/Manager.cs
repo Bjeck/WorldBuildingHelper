@@ -15,9 +15,11 @@ using UnityEngine;
 /// 
 /// DONE - load a new question immediately so we don't have to press and create empty data.
 /// - better writing tool? (than built-in input field?)
-/// - clear text when pressing new question.
+/// DONE - clear text when pressing new question.
+
 /// - some writing incentive? (timer? wordcount limit? other?)
-/// - 
+/// - DONE  - word particles
+/// 
 /// - better presentation.
 /// - new font
 /// 
@@ -35,6 +37,7 @@ using UnityEngine;
 
 public class Manager : MonoBehaviour
 {
+    [SerializeField] FileSaver saver;
     [SerializeField] FileReader reader;
     [SerializeField] Categories categories;
     [SerializeField] Question question;
@@ -57,8 +60,15 @@ public class Manager : MonoBehaviour
     {
         if(reader.questions.Count > 0)
         {
-            categories.gameObject.SetActive(true);
-            categories.SetupCategoryField(reader.questions);
+            if (categories.gameObject.activeInHierarchy)
+            {
+                categories.gameObject.SetActive(false);
+            }
+            else
+            {
+                categories.gameObject.SetActive(true);
+                categories.SetupCategoryField(reader.questions);
+            }
         }
     }
 
@@ -71,11 +81,12 @@ public class Manager : MonoBehaviour
         for (int i = 0; i < cats.Count; i++)
         {
             List<QuestionData> list = reader.questions[cats[i]];
-            list.RemoveAll(x => SaveData.questionAnswers.Exists(y => y.question.id == x.id)); //removes all with an id already present in save data.
+            list.RemoveAll(x => SaveData.questionAnswers.Exists(y => y.question.refid == x.refid && y.question.id == x.id)); //removes all with an id already present in save data.
             questionsNotAsked.Add(cats[i], reader.questions[cats[i]]);
         }
 
         question.NewQuestion();
+        ClearAnswer();
     }
 
     public void LoadStartingQuestions()
@@ -91,11 +102,12 @@ public class Manager : MonoBehaviour
         {
             for (int i = 0; i < SaveData.questionAnswers.Count; i++)
             {
-                questionsNotAsked[SaveData.questionAnswers[i].question.category].RemoveAll(x => x.id == SaveData.questionAnswers[i].question.id);
+                questionsNotAsked[SaveData.questionAnswers[i].question.category].RemoveAll(x => x.refid == SaveData.questionAnswers[i].question.refid && x.id == SaveData.questionAnswers[i].question.id); //Removes all questions that have been answered in savedata
             }
         }
 
         question.NewQuestion();
+        ClearAnswer();
     }
 
     public void SaveQuestion(string customAnswer = null)
@@ -104,11 +116,25 @@ public class Manager : MonoBehaviour
         SaveData.questionAnswers.Add(pair);
 
         questionsNotAsked[question.currentQuestionData.category].Remove(question.currentQuestionData);
+        ClearAnswer();
     }
 
     public void SkipAndRemoveQuestionFromPool()
     {
         SaveQuestion("[SKIPPED]");
+        ClearAnswer();
+    }
+
+    public void ClearAnswer()
+    {
+        answer.text = "";
+    }
+
+    public void DisplayAnswer()
+    {
+        string answer = saver.CreateClearTextAnswer();
+
+        popups.DisplayFullAnswer(answer);
     }
 
 

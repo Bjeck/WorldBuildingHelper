@@ -2,79 +2,25 @@
 
 ----------
 
-Q: 6 (PHYSICS) 
-What is the weather like?
-
-A: 
-
-
-----------
-
-Q: 1 (PHYSICS) 
-Are the laws of nature / physics different to earth? Elaborate.				FRom https://www.novel-software.com/theultimateworldbuildingquestionnaire
-
-A: 
-
-
-----------
-
-Q: 5 (PHYSICS) 
-What is the climate like?
-
-A: 
-
-
-----------
-
-Q: 7 (PHYSICS) 
-What are the seasons like? How many / how long?
-
-A: 
-
-
-----------
-
-Q: 8 (PHYSICS) 
-What are the birds like?
-
-A: 
-
-
-----------
-
-Q: 2 (PHYSICS) 
-Are there multiple suns / moons?
-
-A: 
-
-
-----------
-
-Q: 10 (PHYSICS) 
-What are the large animals like?
-
-A: 
-
-
-----------
-
-Q: 4 (PHYSICS) 
-Describe the night sky.
-
-A: 
-
-
-----------
-
-Q: 9 (PHYSICS) 
-What are the small animals like?
-
-A: 
-
-
-----------
-
-Q: 3 (PHYSICS) 
+Q: 3 (#PHYSICS) 
 Describe the sky during the day.
 
 A: 
+It's the sky. it's pretty dope.
+
+----------
+
+Q: 123 (#RELIGION AND SCIENCE) 
+"What is the level of technology (stone age, hi tech)?"
+
+A: 
+uhm. well. there's maybe some moss on that rock over there...
+But no. Not really.
+
+----------
+
+Q: 122 (#RELIGION AND SCIENCE) 
+What are temples like?
+
+A: 
+They're pretty empty
