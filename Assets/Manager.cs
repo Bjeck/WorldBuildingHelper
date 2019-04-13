@@ -29,6 +29,13 @@ using UnityEngine;
 /// - simple ai idea: When they answer a question, a weighing of the randomness of the next question category goes up for that category.
 ///                     maybe increases weighing more if the answer is longer????
 /// 
+/// 
+/// 
+/// 
+/// 
+/// Category Thoughts
+/// I could split off into a separate category: Technology, Language, Education?, Food (and have daily life be customs?)
+/// 
 /// </summary>
 
 
@@ -42,7 +49,6 @@ public class Manager : MonoBehaviour
     [SerializeField] Categories categories;
     [SerializeField] Question question;
     [SerializeField] TMP_InputField answer;
-
     public Popups popups;
 
     public QuestionAnswerData SaveData = null;

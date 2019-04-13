@@ -8,6 +8,8 @@ public class Question : MonoBehaviour
 {
     [SerializeField] Manager manager;
     [SerializeField] TextMeshProUGUI question;
+    [SerializeField] ReferenceLink referenceLink;
+
 
     public QuestionData currentQuestionData;
 
@@ -28,6 +30,7 @@ public class Question : MonoBehaviour
         int rand2 = Random.Range(0, manager.questionsNotAsked[rand].Count);
         currentQuestionData = manager.questionsNotAsked[rand][rand2];
         question.text = currentQuestionData.question;
+        referenceLink.SetupLink(currentQuestionData.reference);
 
         //use that question up
 
